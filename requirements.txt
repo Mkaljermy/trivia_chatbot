@@ -2,3 +2,9 @@ pandas
 numpy
 psycopg2
 sqlalchemy
+groq
+dotenv
+langchain
+sentence_transformers
+faiss
+streamlit
