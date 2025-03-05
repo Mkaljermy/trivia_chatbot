@@ -1,5 +1,5 @@
 from groq import Groq
-from dotenv import load_dotenv  # Import the load_dotenv function
+from dotenv import load_dotenv  
 from sqlalchemy import create_engine, exc as sql_exc
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 from sentence_transformers import SentenceTransformer
@@ -17,7 +17,7 @@ MODEL_NAME = "deepseek-r1-distill-llama-70b"
 EMBEDDINGS_FILE = "embeddings.npy"
 FAISS_INDEX_FILE = "faiss_index.index"
 
-load_dotenv() # initialize .env file
+load_dotenv()
 api_key = os.getenv('GROQ_API_KEY')
 
 
@@ -65,9 +65,7 @@ def build_or_load_faiss_index(embeddings):
 
 def handel_query(query, encoder, index, chunks):
     """process user query"""
-    # encode query
     query_embedding = encoder.encode(query)
-    #faiss search
     _, indices = index.search(query_embedding.reshape(1, -1), FAISS_K)
     context = [chunks[i] for i in indices[0]]
 
@@ -112,7 +110,7 @@ def main():
 
                 prompt = handel_query(query, encoder, index, chunks)
 
-                # For streaming responses
+                # streaming responses
                 response = client.chat.completions.create(
                     model=MODEL_NAME,
                     messages=[
@@ -125,7 +123,7 @@ def main():
 
                 print("\nResponse:")
 
-                # Properly handle streaming response
+                #handle streaming response
                 for chunk in response:
                     if chunk.choices[0].delta.content:
                         print(chunk.choices[0].delta.content, end='', flush=True)
