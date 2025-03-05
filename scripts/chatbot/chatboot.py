@@ -104,7 +104,7 @@ def main():
             try:
                 query = input("\nHow can I help you today😊? (Type 'exit' to quit): ")
 
-                if query.lower == 'exit':
+                if query.lower().strip() == 'exit':
                     print('Goodbye')
                     break
 
